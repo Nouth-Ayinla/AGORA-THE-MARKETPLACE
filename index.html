@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agora – Nigeria's Marketplace for Student Hustlers</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#FF6B35",
+            "primary-dark": "#E85A24",
+            secondary: "#4ECDC4",
+            "secondary-dark": "#3DBDB4",
+            navy: "#2C3E50",
+            muted: "#7F8C8D",
+            "bg-light": "#F8FAFC",
+            "bg-dark": "#0D1117",
+            "surface-light": "#FFFFFF",
+            "surface-dark": "#161B22",
+            "surface-2-dark": "#21262D",
+            "text-body": "#4A5568",
+            "text-body-dark": "#9CA3AF",
+            "heading-light": "#0F172A",
+            "heading-dark": "#F0F6FC",
+          },
+          fontFamily: {
+            display: ["Outfit", "sans-serif"],
+          },
+          animation: {
+            "ping-slow": "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+            "float": "float 3s ease-in-out infinite",
+            "slide-up": "slideUp 0.6s ease-out forwards",
+            "fade-in": "fadeIn 0.5s ease-out forwards",
+            "count-up": "countUp 2s ease-out forwards",
+          },
+          keyframes: {
+            float: {
+              "0%, 100%": { transform: "translateY(0px)" },
+              "50%": { transform: "translateY(-10px)" },
+            },
+            slideUp: {
+              from: { opacity: 0, transform: "translateY(30px)" },
+              to: { opacity: 1, transform: "translateY(0)" },
+            },
+            fadeIn: {
+              from: { opacity: 0 },
+              to: { opacity: 1 },
+            },
+          },
+          boxShadow: {
+            "glow-primary": "0 0 30px rgba(255,107,53,0.3)",
+            "glow-secondary": "0 0 30px rgba(78,205,196,0.3)",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { font-family: 'Outfit', sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    /* Gradient text utility */
+    .gradient-text {
+      background: linear-gradient(135deg, #FF6B35 0%, #FF9A6C 50%, #FFB347 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-text-teal {
+      background: linear-gradient(135deg, #4ECDC4 0%, #44BBA4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Blob background */
+    .blob {
+      border-radius: 42% 56% 72% 28% / 42% 42% 56% 48%;
+      animation: morph 8s linear infinite;
+    }
+    @keyframes morph {
+      0%, 100% { border-radius: 42% 56% 72% 28% / 42% 42% 56% 48%; }
+      50% { border-radius: 56% 44% 28% 72% / 56% 56% 44% 44%; }
+    }
+
+    /* Ticker animation */
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-track { animation: ticker 25s linear infinite; }
+    .ticker-track:hover { animation-play-state: paused; }
+
+    /* Reveal animations */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* FAQ accordion */
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s ease; }
+    .faq-answer.open { max-height: 300px; }
+    .faq-chevron { transition: transform 0.3s ease; }
+    .faq-chevron.open { transform: rotate(180deg); }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #FF6B35; border-radius: 10px; }
+
+    /* Card hover lift */
+    .card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+    .dark .card-lift:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+
+    /* Progress bar */
+    .progress-fill { animation: fillBar 2s ease-out forwards; }
+    @keyframes fillBar {
+      from { width: 0%; }
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* Number counter */
+    @keyframes countUp { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+</head>
+<body class="bg-bg-light dark:bg-bg-dark text-text-body dark:text-text-body-dark antialiased selection:bg-primary selection:text-white transition-colors duration-300">
+
+<!-- ========== NAVIGATION ========== -->
+<header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 lg:h-20">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-2 group">
+        <div class="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform">
+          <span class="material-icons text-white text-xl">storefront</span>
+        </div>
+        <span class="font-display font-extrabold text-2xl text-heading-light dark:text-heading-dark tracking-tight">Agora</span>
+      </a>
+
+      <!-- Nav links (desktop) -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#problems" class="text-sm font-medium text-text-body dark:text-text-body-dark hover:text-primary dark:hover:text-primary transition-colors">The Problem</a>
+        <a href="#features" class="text-sm font-medium text-text-body dark:text-text-body-dark hover:text-primary dark:hover:text-primary transition-colors">Features</a>
+        <a href="#pricing" class="text-sm font-medium text-text-body dark:text-text-body-dark hover:text-primary dark:hover:text-primary transition-colors">Pricing</a>
+        <a href="#ambassador" class="text-sm font-medium text-text-body dark:text-text-body-dark hover:text-primary dark:hover:text-primary transition-colors">Ambassadors</a>
+        <a href="#faq" class="text-sm font-medium text-text-body dark:text-text-body-dark hover:text-primary dark:hover:text-primary transition-colors">FAQ</a>
+      </nav>
+
+      <!-- CTA + Dark toggle -->
+      <div class="flex items-center space-x-3">
+        <button onclick="toggleDark()" class="p-2 rounded-lg text-text-body dark:text-text-body-dark hover:bg-gray-100 dark:hover:bg-surface-2-dark transition-colors" aria-label="Toggle dark mode">
+          <span class="material-icons text-xl dark:hidden">dark_mode</span>
+          <span class="material-icons text-xl hidden dark:inline">light_mode</span>
+        </button>
+        <a href="#waitlist" class="bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-0.5 active:translate-y-0">
+          Join Waitlist
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ========== HERO ========== -->
+<section class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+
+  <!-- Background decoration -->
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute top-20 right-10 w-80 h-80 bg-primary/15 blob blur-2xl"></div>
+    <div class="absolute bottom-20 left-10 w-64 h-64 bg-secondary/15 blob blur-2xl" style="animation-delay:-3s"></div>
+    <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Left: copy -->
+      <div class="space-y-8">
+
+        <!-- Pill badge -->
+        <div class="reveal inline-flex items-center space-x-2 bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 px-4 py-2 rounded-full shadow-sm">
+          <span class="flex h-2.5 w-2.5 relative">
+            <span class="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+          </span>
+          <span class="text-sm font-semibold text-heading-light dark:text-heading-dark">
+            🔥 <span id="waitlist-hero-count">847</span> students already on the list
+          </span>
+        </div>
+
+        <!-- Headline -->
+        <div class="reveal reveal-delay-1">
+          <h1 class="font-display font-black text-5xl sm:text-6xl lg:text-7xl text-heading-light dark:text-heading-dark leading-[1.05] tracking-tight">
+            Sell More.<br/>
+            Keep More.<br/>
+            <span class="gradient-text">Earn More.</span>
+          </h1>
+        </div>
+
+        <!-- Subheadline -->
+        <p class="reveal reveal-delay-2 text-lg lg:text-xl text-text-body dark:text-text-body-dark max-w-lg leading-relaxed">
+          Nigeria's first marketplace built <em>for</em> students. Sell products + offer services, keep 90% of your earnings, and get paid in <strong class="text-heading-light dark:text-heading-dark">3 days</strong> — not 30.
+        </p>
+
+        <!-- Social proof avatars -->
+        <div class="reveal reveal-delay-2 flex items-center space-x-3">
+          <div class="flex -space-x-2">
+            <img class="w-9 h-9 rounded-full border-2 border-white dark:border-surface-dark object-cover" src="https://api.dicebear.com/7.x/avataaars/svg?seed=student1&backgroundColor=b6e3f4" alt="Student" />
+            <img class="w-9 h-9 rounded-full border-2 border-white dark:border-surface-dark object-cover" src="https://api.dicebear.com/7.x/avataaars/svg?seed=student2&backgroundColor=ffd93d" alt="Student" />
+            <img class="w-9 h-9 rounded-full border-2 border-white dark:border-surface-dark object-cover" src="https://api.dicebear.com/7.x/avataaars/svg?seed=student3&backgroundColor=c0aede" alt="Student" />
+            <img class="w-9 h-9 rounded-full border-2 border-white dark:border-surface-dark object-cover" src="https://api.dicebear.com/7.x/avataaars/svg?seed=student4&backgroundColor=ffb347" alt="Student" />
+            <div class="w-9 h-9 rounded-full border-2 border-white dark:border-surface-dark bg-primary flex items-center justify-center text-white text-xs font-bold">
+              +843
+            </div>
+          </div>
+          <p class="text-sm text-text-body dark:text-text-body-dark">
+            From <span class="font-semibold text-heading-light dark:text-heading-dark">UNILAG, UI, FUTA, OAU</span> and more
+          </p>
+        </div>
+
+        <!-- Hero form -->
+        <div class="reveal reveal-delay-3" id="waitlist">
+          <form id="hero-form" onsubmit="handleSignup(event, 'hero')" class="space-y-3 max-w-md">
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input
+                required type="email" id="hero-email"
+                placeholder="youremail@uni.edu.ng"
+                class="flex-1 px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark text-heading-light dark:text-heading-dark placeholder:text-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm"
+              />
+              <button type="submit"
+                class="bg-primary hover:bg-primary-dark text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-all duration-200 whitespace-nowrap shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                <span>Get Early Access</span>
+                <span class="material-icons text-base">arrow_forward</span>
+              </button>
+            </div>
+            <p class="text-xs text-muted dark:text-gray-500 flex items-center gap-1">
+              <span class="material-icons text-xs">lock</span>
+              No spam. No business registration needed — just your student ID.
+            </p>
+          </form>
+          <!-- Success message -->
+          <div id="hero-success" class="hidden bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 flex items-center gap-3 max-w-md">
+            <span class="material-icons text-green-500">check_circle</span>
+            <div>
+              <p class="font-semibold text-green-800 dark:text-green-300 text-sm">You're on the list! 🎉</p>
+              <p class="text-green-600 dark:text-green-400 text-xs mt-0.5">Check your email for next steps. Welcome to Agora!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Early bird perks strip -->
+        <div class="reveal reveal-delay-4 flex flex-wrap gap-4">
+          <div class="flex items-center gap-1.5 text-sm font-medium text-heading-light dark:text-heading-dark">
+            <span class="material-icons text-primary text-base">verified</span> 0% commission – 3 months
+          </div>
+          <div class="flex items-center gap-1.5 text-sm font-medium text-heading-light dark:text-heading-dark">
+            <span class="material-icons text-secondary text-base">star</span> Free featured listings
+          </div>
+          <div class="flex items-center gap-1.5 text-sm font-medium text-heading-light dark:text-heading-dark">
+            <span class="material-icons text-primary text-base">workspace_premium</span> Founding member badge
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: visual card stack -->
+      <div class="relative hidden lg:block">
+        <!-- Main image -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-3xl rotate-3 scale-105 -z-10 blur-sm"></div>
+        <img
+          src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=700&q=80"
+          alt="Nigerian students hustling"
+          class="rounded-3xl shadow-2xl object-cover h-[480px] w-full"
+        />
+
+        <!-- Floating cards -->
+        <div class="absolute -bottom-6 -left-8 bg-white dark:bg-surface-dark rounded-2xl shadow-xl p-4 flex items-center gap-3 animate-float border border-gray-100 dark:border-gray-800">
+          <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+            <span class="material-icons text-green-500 text-lg">payments</span>
+          </div>
+          <div>
+            <p class="text-xs text-muted">Last payout</p>
+            <p class="font-bold text-heading-light dark:text-heading-dark text-sm">₦47,500 received ✓</p>
+          </div>
+        </div>
+
+        <div class="absolute -top-4 -right-6 bg-white dark:bg-surface-dark rounded-2xl shadow-xl p-4 animate-float border border-gray-100 dark:border-gray-800" style="animation-delay:-1.5s">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="material-icons text-primary text-base">shopping_bag</span>
+            <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">New order!</p>
+          </div>
+          <p class="text-xs text-muted">Graphic design – ₦15,000</p>
+          <div class="mt-2 flex gap-1">
+            <span class="text-yellow-400 text-xs">★★★★★</span>
+          </div>
+        </div>
+
+        <div class="absolute top-1/2 -right-10 bg-primary rounded-2xl shadow-xl p-4 text-white animate-float" style="animation-delay:-0.8s">
+          <p class="text-xs font-medium opacity-80">This month</p>
+          <p class="font-black text-2xl">₦82k</p>
+          <p class="text-xs opacity-80 flex items-center gap-0.5"><span class="material-icons text-xs">trending_up</span> +34% vs last month</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== STATS TICKER ========== -->
+<div class="bg-primary py-3 overflow-hidden">
+  <div class="flex ticker-track whitespace-nowrap">
+    <div class="flex items-center space-x-12 mx-8 text-white font-semibold text-sm" style="min-width: max-content;">
+      <span class="flex items-center gap-2"><span class="material-icons text-base">people</span> 847+ students on waitlist</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">payments</span> 3-day payment turnaround</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">percent</span> Only 10% commission</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">school</span> No business registration needed</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">support_agent</span> Real 24/7 human support</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">pause_circle</span> Pause during exams</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">storefront</span> Products + Services on one platform</span>
+      <span class="text-white/40 text-lg">•</span>
+    </div>
+    <!-- Duplicate for seamless loop -->
+    <div class="flex items-center space-x-12 mx-8 text-white font-semibold text-sm" style="min-width: max-content;" aria-hidden="true">
+      <span class="flex items-center gap-2"><span class="material-icons text-base">people</span> 847+ students on waitlist</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">payments</span> 3-day payment turnaround</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">percent</span> Only 10% commission</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">school</span> No business registration needed</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">support_agent</span> Real 24/7 human support</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">pause_circle</span> Pause during exams</span>
+      <span class="text-white/40 text-lg">•</span>
+      <span class="flex items-center gap-2"><span class="material-icons text-base">storefront</span> Products + Services on one platform</span>
+      <span class="text-white/40 text-lg">•</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ========== STATS ========== -->
+<section class="py-20 bg-white dark:bg-surface-dark transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="text-center reveal">
+        <p class="font-black text-4xl lg:text-5xl gradient-text counter" data-target="847">0</p>
+        <p class="text-sm text-text-body dark:text-text-body-dark mt-2 font-medium">Students on Waitlist</p>
+      </div>
+      <div class="text-center reveal reveal-delay-1">
+        <p class="font-black text-4xl lg:text-5xl gradient-text-teal">10%</p>
+        <p class="text-sm text-text-body dark:text-text-body-dark mt-2 font-medium">Commission (vs 20% elsewhere)</p>
+      </div>
+      <div class="text-center reveal reveal-delay-2">
+        <p class="font-black text-4xl lg:text-5xl gradient-text">3</p>
+        <p class="text-sm text-text-body dark:text-text-body-dark mt-2 font-medium">Days to Get Paid</p>
+      </div>
+      <div class="text-center reveal reveal-delay-3">
+        <p class="font-black text-4xl lg:text-5xl gradient-text-teal">2M+</p>
+        <p class="text-sm text-text-body dark:text-text-body-dark mt-2 font-medium">Nigerian University Students</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== PROBLEMS ========== -->
+<section id="problems" class="py-24 bg-bg-light dark:bg-bg-dark transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal">
+      <div class="inline-block bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+        Sound familiar?
+      </div>
+      <h2 class="font-display font-black text-4xl lg:text-5xl text-heading-light dark:text-heading-dark mb-4">
+        Your hustle shouldn't feel<br/>like a second degree
+      </h2>
+      <p class="text-lg text-text-body dark:text-text-body-dark max-w-2xl mx-auto">
+        Running a side business on campus is hard enough. The existing platforms make it even harder.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Problem 1 -->
+      <div class="card-lift reveal bg-white dark:bg-surface-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
+        <div class="w-14 h-14 bg-red-50 dark:bg-red-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <span class="material-icons text-red-500 text-2xl">payments</span>
+        </div>
+        <div class="inline-block bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-2.5 py-0.5 rounded-full text-xs font-bold mb-3">20% gone.</div>
+        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Eating Your Profits</h3>
+        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+          Jumia and Konga charge up to <strong class="text-red-500">20% commission</strong>. Sell ₦10,000 of thrift clothes and you only see ₦8,000. On Agora? You keep ₦9,000+.
+        </p>
+      </div>
+
+      <!-- Problem 2 -->
+      <div class="card-lift reveal reveal-delay-1 bg-white dark:bg-surface-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
+        <div class="w-14 h-14 bg-orange-50 dark:bg-orange-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <span class="material-icons text-orange-500 text-2xl">schedule</span>
+        </div>
+        <div class="inline-block bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 px-2.5 py-0.5 rounded-full text-xs font-bold mb-3">30-day wait?!</div>
+        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Waiting Forever to Get Paid</h3>
+        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+          You completed the order, the customer is happy — but your money won't arrive for <strong class="text-orange-500">30 days</strong>. Try paying your room rent with that.
+        </p>
+      </div>
+
+      <!-- Problem 3 -->
+      <div class="card-lift reveal reveal-delay-2 bg-white dark:bg-surface-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
+        <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <span class="material-icons text-blue-500 text-2xl">chat_bubble</span>
+        </div>
+        <div class="inline-block bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2.5 py-0.5 rounded-full text-xs font-bold mb-3">DM chaos</div>
+        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Instagram DM Burnout</h3>
+        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+          "Price is in the bio." "DM for orders." "Is it available?" — every day, hundreds of messages, no system, lost orders, frustrated customers.
+        </p>
+      </div>
+
+      <!-- Problem 4 -->
+      <div class="card-lift reveal bg-white dark:bg-surface-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
+        <div class="w-14 h-14 bg-purple-50 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <span class="material-icons text-purple-500 text-2xl">menu_book</span>
+        </div>
+        <div class="inline-block bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 px-2.5 py-0.5 rounded-full text-xs font-bold mb-3">Class vs bag</div>
+        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Class or Business?</h3>
+        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+          Missing your 8AM because a customer insists on delivery. Failing that test because you were up till 3AM answering WhatsApp messages.
+        </p>
+      </div>
+
+      <!-- Problem 5 -->
+      <div class="card-lift reveal reveal-delay-1 bg-white dark:bg-surface-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
+        <div class="w-14 h-14 bg-yellow-50 dark:bg-yellow-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <span class="material-icons text-yellow-500 text-2xl">gavel</span>
+        </div>
+        <div class="inline-block bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 px-2.5 py-0.5 rounded-full text-xs font-bold mb-3">CAC stress</div>
+        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Business Registration Barrier</h3>
+        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+          Most platforms want a CAC registration, tax ID, or business bank account. You're 20. In 200L. You just want to sell your fashion pieces.
+        </p>
+      </div>
+
+      <!-- Problem 6 -->
+      <div class="card-lift reveal reveal-delay-2 bg-white dark:bg-surface-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
+        <div class="w-14 h-14 bg-teal-50 dark:bg-teal-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <span class="material-icons text-teal-500 text-2xl">space_dashboard</span>
+        </div>
+        <div class="inline-block bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 px-2.5 py-0.5 rounded-full text-xs font-bold mb-3">Multiple apps</div>
+        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">No Platform Does Both</h3>
+        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+          Want to sell your cakes AND offer your design skills? You need Jumia for one, Fiverr for another, and neither was built for Nigeria.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== FEATURES / SOLUTION ========== -->
+<section id="features" class="py-24 bg-white dark:bg-surface-dark transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal">
+      <div class="inline-block bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+        The fix
+      </div>
+      <h2 class="font-display font-black text-4xl lg:text-5xl text-heading-light dark:text-heading-dark mb-4">
+        Built for <span class="gradient-text">your life</span>, not theirs
+      </h2>
+      <p class="text-lg text-text-body dark:text-text-body-dark max-w-2xl mx-auto">
+        Every feature on Agora was designed by someone who's sat in that lecture hall, managed orders from their hostel, and knows what broke really means.
+      </p>
+    </div>
+
+    <!-- Big feature rows -->
+    <div class="space-y-20">
+
+      <!-- Feature A -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center reveal">
+        <div>
+          <div class="inline-flex items-center gap-2 bg-primary/10 dark:bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-bold mb-5">
+            <span class="material-icons text-base">storefront</span> Products + Services
+          </div>
+          <h3 class="font-black text-3xl text-heading-light dark:text-heading-dark mb-4">
+            One platform.<br/>Everything you offer.
+          </h3>
+          <p class="text-text-body dark:text-text-body-dark mb-6 leading-relaxed">
+            List your fashion pieces and your graphic design services under the same profile. Your customers can order a cake and book a photography session without switching apps.
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="material-icons text-primary mt-0.5 text-lg">check_circle</span>
+              <div>
+                <p class="font-semibold text-heading-light dark:text-heading-dark text-sm">Products: fashion, food, electronics, beauty, crafts</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="material-icons text-primary mt-0.5 text-lg">check_circle</span>
+              <div>
+                <p class="font-semibold text-heading-light dark:text-heading-dark text-sm">Services: design, coding, tutoring, photography, writing</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="material-icons text-primary mt-0.5 text-lg">check_circle</span>
+              <div>
+                <p class="font-semibold text-heading-light dark:text-heading-dark text-sm">Booking calendar for service providers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-bg-light dark:bg-bg-dark rounded-3xl p-8 border border-gray-100 dark:border-gray-800">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800 text-center hover:border-primary transition-colors cursor-pointer">
+              <span class="material-icons text-primary text-3xl mb-2">checkroom</span>
+              <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">Fashion & Thrift</p>
+            </div>
+            <div class="bg-white dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800 text-center hover:border-primary transition-colors cursor-pointer">
+              <span class="material-icons text-secondary text-3xl mb-2">design_services</span>
+              <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">Graphic Design</p>
+            </div>
+            <div class="bg-white dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800 text-center hover:border-primary transition-colors cursor-pointer">
+              <span class="material-icons text-primary text-3xl mb-2">restaurant</span>
+              <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">Food & Snacks</p>
+            </div>
+            <div class="bg-white dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800 text-center hover:border-primary transition-colors cursor-pointer">
+              <span class="material-icons text-secondary text-3xl mb-2">school</span>
+              <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">Tutoring</p>
+            </div>
+            <div class="bg-white dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800 text-center hover:border-primary transition-colors cursor-pointer">
+              <span class="material-icons text-primary text-3xl mb-2">camera_alt</span>
+              <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">Photography</p>
+            </div>
+            <div class="bg-white dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-800 text-center hover:border-primary transition-colors cursor-pointer">
+              <span class="material-icons text-secondary text-3xl mb-2">more_horiz</span>
+              <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">+ Many More</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature B -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center reveal">
+        <div class="order-2 md:order-1 bg-bg-light dark:bg-bg-dark rounded-3xl p-8 border border-gray-100 dark:border-gray-800">
+          <!-- Pause UI mockup -->
+          <div class="bg-white dark:bg-surface-dark rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-800 mb-4">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <p class="font-bold text-heading-light dark:text-heading-dark text-sm">Chuka's Fashion Store</p>
+                <p class="text-xs text-green-500 font-medium flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"></span> Active</p>
+              </div>
+              <span class="material-icons text-secondary">store</span>
+            </div>
+            <div class="space-y-2 text-xs text-text-body dark:text-text-body-dark">
+              <div class="flex justify-between"><span>Today's orders</span><span class="font-semibold text-heading-light dark:text-heading-dark">7</span></div>
+              <div class="flex justify-between"><span>This week's earnings</span><span class="font-semibold text-green-500">₦34,200</span></div>
+            </div>
+          </div>
+          <!-- Pause button area -->
+          <div class="bg-orange-50 dark:bg-orange-900/20 rounded-2xl p-5 border border-orange-200 dark:border-orange-800">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="material-icons text-primary text-2xl">pause_circle</span>
+              <div>
+                <p class="font-bold text-heading-light dark:text-heading-dark text-sm">Exam Mode</p>
+                <p class="text-xs text-text-body dark:text-text-body-dark">Pause store during exam week</p>
+              </div>
+            </div>
+            <button class="w-full bg-primary text-white py-2.5 rounded-xl text-xs font-bold hover:bg-primary-dark transition-colors">Activate Exam Mode</button>
+          </div>
+        </div>
+        <div class="order-1 md:order-2">
+          <div class="inline-flex items-center gap-2 bg-secondary/10 text-secondary-dark dark:text-secondary px-4 py-1.5 rounded-full text-sm font-bold mb-5">
+            <span class="material-icons text-base">pause_circle</span> Stress-free selling
+          </div>
+          <h3 class="font-black text-3xl text-heading-light dark:text-heading-dark mb-4">
+            Pause during exams.<br/>Resume after.
+          </h3>
+          <p class="text-text-body dark:text-text-body-dark mb-6 leading-relaxed">
+            One tap and your shop goes into Exam Mode. No new orders, no pressure, no customers chasing you the night before your GNE paper. Your CGPA is safe.
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="material-icons text-secondary mt-0.5 text-lg">check_circle</span>
+              <p class="text-sm font-semibold text-heading-light dark:text-heading-dark">Auto-notification to pending customers</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="material-icons text-secondary mt-0.5 text-lg">check_circle</span>
+              <p class="text-sm font-semibold text-heading-light dark:text-heading-dark">Schedule your pause in advance</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="material-icons text-secondary mt-0.5 text-lg">check_circle</span>
+              <p class="text-sm font-semibold text-heading-light dark:text-heading-dark">Instant reactivation when exams are done</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Feature grid -->
+    <div class="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="card-lift reveal bg-bg-light dark:bg-bg-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+        <div class="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="material-icons text-primary text-xl">bolt</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1.5">5-Min Setup</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark leading-relaxed">List your first product in under 5 minutes. No complicated forms.</p>
+      </div>
+      <div class="card-lift reveal reveal-delay-1 bg-bg-light dark:bg-bg-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+        <div class="w-11 h-11 bg-secondary/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="material-icons text-secondary text-xl">verified</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1.5">Verified Sellers</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark leading-relaxed">Buyer trust through student ID verification and seller badges.</p>
+      </div>
+      <div class="card-lift reveal reveal-delay-2 bg-bg-light dark:bg-bg-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+        <div class="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="material-icons text-primary text-xl">bar_chart</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1.5">Sales Analytics</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark leading-relaxed">Know what's selling, who's buying, when to restock — all on your phone.</p>
+      </div>
+      <div class="card-lift reveal reveal-delay-3 bg-bg-light dark:bg-bg-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+        <div class="w-11 h-11 bg-secondary/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="material-icons text-secondary text-xl">support_agent</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1.5">Real Human Support</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark leading-relaxed">Not a bot. Actual people, 24/7. Call, WhatsApp, or chat — we answer.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ========== PRICING COMPARISON ========== -->
+<section id="pricing" class="py-24 bg-bg-light dark:bg-bg-dark transition-colors duration-300">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <div class="inline-block bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+        The numbers
+      </div>
+      <h2 class="font-display font-black text-4xl lg:text-5xl text-heading-light dark:text-heading-dark mb-4">
+        You deserve to <span class="gradient-text">keep more</span>
+      </h2>
+      <p class="text-lg text-text-body dark:text-text-body-dark max-w-xl mx-auto">
+        The math is simple. Lower fees = more money in your pocket. Here's how we stack up.
+      </p>
+    </div>
+
+    <div class="reveal overflow-x-auto rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800">
+      <table class="w-full min-w-[600px] text-sm">
+        <thead>
+          <tr class="bg-navy dark:bg-surface-2-dark">
+            <th class="text-left px-6 py-5 text-white dark:text-heading-dark font-bold">Feature</th>
+            <th class="px-6 py-5 text-center">
+              <div class="bg-primary text-white px-4 py-2 rounded-xl inline-block font-bold text-base">
+                🏆 Agora
+              </div>
+            </th>
+            <th class="px-6 py-5 text-center text-gray-400 font-semibold">Jumia/Konga</th>
+            <th class="px-6 py-5 text-center text-gray-400 font-semibold">Instagram</th>
+            <th class="px-6 py-5 text-center text-gray-400 font-semibold">Fiverr</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white dark:bg-surface-dark border-b border-gray-100 dark:border-gray-800">
+            <td class="px-6 py-4 font-semibold text-heading-light dark:text-heading-dark">Commission</td>
+            <td class="px-6 py-4 text-center"><span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-3 py-1 rounded-full font-bold">8–10%</span></td>
+            <td class="px-6 py-4 text-center text-red-500 font-semibold">15–20%</td>
+            <td class="px-6 py-4 text-center text-text-body dark:text-text-body-dark">0% (but no buyers)</td>
+            <td class="px-6 py-4 text-center text-red-500 font-semibold">20%</td>
+          </tr>
+          <tr class="bg-bg-light dark:bg-bg-dark border-b border-gray-100 dark:border-gray-800">
+            <td class="px-6 py-4 font-semibold text-heading-light dark:text-heading-dark">Payment Time</td>
+            <td class="px-6 py-4 text-center"><span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-3 py-1 rounded-full font-bold">3 days</span></td>
+            <td class="px-6 py-4 text-center text-red-500 font-semibold">14–30 days</td>
+            <td class="px-6 py-4 text-center text-yellow-600 dark:text-yellow-400 font-semibold">Manual</td>
+            <td class="px-6 py-4 text-center text-red-500 font-semibold">14+ days</td>
+          </tr>
+          <tr class="bg-white dark:bg-surface-dark border-b border-gray-100 dark:border-gray-800">
+            <td class="px-6 py-4 font-semibold text-heading-light dark:text-heading-dark">Sell Products + Services</td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-green-500">check_circle</span></td>
+            <td class="px-6 py-4 text-center text-text-body dark:text-text-body-dark">Products only</td>
+            <td class="px-6 py-4 text-center text-text-body dark:text-text-body-dark">Both (no system)</td>
+            <td class="px-6 py-4 text-center text-text-body dark:text-text-body-dark">Services only</td>
+          </tr>
+          <tr class="bg-bg-light dark:bg-bg-dark border-b border-gray-100 dark:border-gray-800">
+            <td class="px-6 py-4 font-semibold text-heading-light dark:text-heading-dark">Student ID only (no CAC)</td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-green-500">check_circle</span></td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-red-400">cancel</span></td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-green-500">check_circle</span></td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-red-400">cancel</span></td>
+          </tr>
+          <tr class="bg-white dark:bg-surface-dark border-b border-gray-100 dark:border-gray-800">
+            <td class="px-6 py-4 font-semibold text-heading-light dark:text-heading-dark">Exam Pause Feature</td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-green-500">check_circle</span></td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-red-400">cancel</span></td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-red-400">cancel</span></td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-red-400">cancel</span></td>
+          </tr>
+          <tr class="bg-bg-light dark:bg-bg-dark">
+            <td class="px-6 py-4 font-semibold text-heading-light dark:text-heading-dark">24/7 Human Support</td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-green-500">check_circle</span></td>
+            <td class="px-6 py-4 text-center text-text-body dark:text-text-body-dark text-xs">Email only</td>
+            <td class="px-6 py-4 text-center"><span class="material-icons text-red-400">cancel</span></td>
+            <td class="px-6 py-4 text-center text-text-body dark:text-text-body-dark text-xs">Tickets only</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Money comparison callout -->
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5 reveal">
+      <div class="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900 rounded-2xl p-6">
+        <p class="text-sm font-bold text-red-600 dark:text-red-400 mb-2">Selling ₦100,000/month on Jumia</p>
+        <p class="font-black text-3xl text-red-600">₦80,000</p>
+        <p class="text-sm text-red-500 mt-1">You keep only 80% after 20% fees</p>
+      </div>
+      <div class="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-900 rounded-2xl p-6 relative overflow-hidden">
+        <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">+₦10,000/mo</div>
+        <p class="text-sm font-bold text-green-700 dark:text-green-400 mb-2">Selling ₦100,000/month on Agora</p>
+        <p class="font-black text-3xl text-green-600">₦90,000</p>
+        <p class="text-sm text-green-500 mt-1">You keep 90% with only 10% commission</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== TESTIMONIALS ========== -->
+<section class="py-24 bg-white dark:bg-surface-dark transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <h2 class="font-display font-black text-4xl lg:text-5xl text-heading-light dark:text-heading-dark mb-4">
+        Real students. <span class="gradient-text">Real results.</span>
+      </h2>
+      <p class="text-lg text-text-body dark:text-text-body-dark">Here's what beta testers and waitlist students are saying.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <div class="card-lift reveal bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 flex flex-col">
+        <div class="flex text-yellow-400 mb-4">★★★★★</div>
+        <p class="text-text-body dark:text-text-body-dark text-sm leading-relaxed flex-1 mb-5">
+          "I used to spend 3 hours daily on Instagram DMs. Now I spend 15 minutes on Agora and my shop runs itself during lectures. My CGPA actually went up last semester."
+        </p>
+        <div class="flex items-center gap-3">
+          <img class="w-11 h-11 rounded-full object-cover border-2 border-primary" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Adaeze&backgroundColor=b6e3f4" alt="Adaeze" />
+          <div>
+            <p class="font-bold text-heading-light dark:text-heading-dark text-sm">Adaeze O.</p>
+            <p class="text-xs text-muted">300L, Fashion & Accessories · UNILAG</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-lift reveal reveal-delay-1 bg-navy text-white p-7 rounded-2xl flex flex-col relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
+        <div class="flex text-yellow-400 mb-4 relative z-10">★★★★★</div>
+        <p class="text-gray-300 text-sm leading-relaxed flex-1 mb-5 relative z-10">
+          "The 3-day payment is a game changer. I was broke waiting 30 days on another platform. Now I get paid on Friday, restock on Saturday, and run again Monday. This is how it should work."
+        </p>
+        <div class="flex items-center gap-3 relative z-10">
+          <img class="w-11 h-11 rounded-full object-cover border-2 border-secondary" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Emeka&backgroundColor=ffd93d" alt="Emeka" />
+          <div>
+            <p class="font-bold text-white text-sm">Emeka T.</p>
+            <p class="text-xs text-gray-400">400L, Electronics Reseller · FUTA</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-lift reveal reveal-delay-2 bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 flex flex-col">
+        <div class="flex text-yellow-400 mb-4">★★★★★</div>
+        <p class="text-text-body dark:text-text-body-dark text-sm leading-relaxed flex-1 mb-5">
+          "I offer graphic design AND sell my thrift finds — on the same profile. My clients know me as a full creative. No other platform in Nigeria lets you do that seamlessly."
+        </p>
+        <div class="flex items-center gap-3">
+          <img class="w-11 h-11 rounded-full object-cover border-2 border-secondary" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Fatimah&backgroundColor=c0aede" alt="Fatimah" />
+          <div>
+            <p class="font-bold text-heading-light dark:text-heading-dark text-sm">Fatimah A.</p>
+            <p class="text-xs text-muted">200L, Design + Thrift · UI</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-lift reveal bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 flex flex-col">
+        <div class="flex text-yellow-400 mb-4">★★★★★</div>
+        <p class="text-text-body dark:text-text-body-dark text-sm leading-relaxed flex-1 mb-5">
+          "I paused my store for my finals. No stress, no FOMO, no customer drama. When I came back, I just reactivated and carried on. Zero sales lost. My store was there waiting for me."
+        </p>
+        <div class="flex items-center gap-3">
+          <img class="w-11 h-11 rounded-full object-cover border-2 border-primary" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Tobi&backgroundColor=ffb347" alt="Tobi" />
+          <div>
+            <p class="font-bold text-heading-light dark:text-heading-dark text-sm">Tobi W.</p>
+            <p class="text-xs text-muted">500L, Small Chops & Cakes · OAU</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-lift reveal reveal-delay-1 bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 flex flex-col">
+        <div class="flex text-yellow-400 mb-4">★★★★★</div>
+        <p class="text-text-body dark:text-text-body-dark text-sm leading-relaxed flex-1 mb-5">
+          "I was earning ₦30k/month and giving Jumia ₦6k of that. On Agora I keep ₦27k from the same amount. That's transport fare, stationery, and still money to restock."
+        </p>
+        <div class="flex items-center gap-3">
+          <img class="w-11 h-11 rounded-full object-cover border-2 border-secondary" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chinwe&backgroundColor=d1f7c4" alt="Chinwe" />
+          <div>
+            <p class="font-bold text-heading-light dark:text-heading-dark text-sm">Chinwe E.</p>
+            <p class="text-xs text-muted">300L, Beauty Products · UNIBEN</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-lift reveal reveal-delay-2 bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 flex flex-col">
+        <div class="flex text-yellow-400 mb-4">★★★★★</div>
+        <p class="text-text-body dark:text-text-body-dark text-sm leading-relaxed flex-1 mb-5">
+          "I was skeptical at first, but when I saw 0% commission for 3 months and that I don't need CAC registration — I signed up in 2 minutes. This is literally built for people like us."
+        </p>
+        <div class="flex items-center gap-3">
+          <img class="w-11 h-11 rounded-full object-cover border-2 border-primary" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bode&backgroundColor=fbc3bc" alt="Bode" />
+          <div>
+            <p class="font-bold text-heading-light dark:text-heading-dark text-sm">Bode K.</p>
+            <p class="text-xs text-muted">100L, Web Dev Services · ABU</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- University logos -->
+    <div class="mt-14 text-center reveal">
+      <p class="text-sm text-muted mb-6 font-medium uppercase tracking-widest">Students from these institutions already joined</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <span class="bg-bg-light dark:bg-bg-dark border border-gray-200 dark:border-gray-800 px-5 py-2.5 rounded-full text-sm font-bold text-heading-light dark:text-heading-dark">UNILAG</span>
+        <span class="bg-bg-light dark:bg-bg-dark border border-gray-200 dark:border-gray-800 px-5 py-2.5 rounded-full text-sm font-bold text-heading-light dark:text-heading-dark">UI</span>
+        <span class="bg-bg-light dark:bg-bg-dark border border-gray-200 dark:border-gray-800 px-5 py-2.5 rounded-full text-sm font-bold text-heading-light dark:text-heading-dark">FUTA</span>
+        <span class="bg-bg-light dark:bg-bg-dark border border-gray-200 dark:border-gray-800 px-5 py-2.5 rounded-full text-sm font-bold text-heading-light dark:text-heading-dark">OAU</span>
+        <span class="bg-bg-light dark:bg-bg-dark border border-gray-200 dark:border-gray-800 px-5 py-2.5 rounded-full text-sm font-bold text-heading-light dark:text-heading-dark">UNIBEN</span>
+        <span class="bg-bg-light dark:bg-bg-dark border border-gray-200 dark:border-gray-800 px-5 py-2.5 rounded-full text-sm font-bold text-heading-light dark:text-heading-dark">ABU</span>
+        <span class="bg-bg-light dark:bg-bg-dark border border-gray-200 dark:border-gray-800 px-5 py-2.5 rounded-full text-sm font-bold text-heading-light dark:text-heading-dark">UNN</span>
+        <span class="bg-bg-light dark:bg-bg-dark border border-gray-200 dark:border-gray-800 px-5 py-2.5 rounded-full text-sm font-bold text-heading-light dark:text-heading-dark">LASU</span>
+        <span class="bg-bg-light dark:bg-bg-dark border border-gray-200 dark:border-gray-800 px-5 py-2.5 rounded-full text-sm font-bold text-primary">+12 more →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== EARLY ADOPTER PERKS ========== -->
+<section class="py-24 bg-bg-light dark:bg-bg-dark overflow-hidden relative">
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute top-0 left-1/2 w-96 h-96 bg-primary/8 rounded-full blur-3xl -translate-x-1/2"></div>
+  </div>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14 reveal">
+      <div class="inline-block bg-yellow-100 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+        ⏳ Limited spots
+      </div>
+      <h2 class="font-display font-black text-4xl lg:text-5xl text-heading-light dark:text-heading-dark mb-4">
+        First 1,000 students get<br/><span class="gradient-text">founder perks</span>
+      </h2>
+      <p class="text-lg text-text-body dark:text-text-body-dark">
+        Join now before the waitlist closes. These perks don't come back after launch.
+      </p>
+    </div>
+
+    <!-- Waitlist progress -->
+    <div class="reveal bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 p-7 mb-10 shadow-sm">
+      <div class="flex justify-between items-center mb-3">
+        <div>
+          <p class="font-bold text-heading-light dark:text-heading-dark">Founding Member Spots</p>
+          <p class="text-sm text-text-body dark:text-text-body-dark">847 claimed · 153 remaining</p>
+        </div>
+        <div class="text-right">
+          <p class="font-black text-2xl text-primary">84.7%</p>
+          <p class="text-xs text-muted">full</p>
+        </div>
+      </div>
+      <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-3 overflow-hidden">
+        <div class="progress-fill h-3 rounded-full bg-gradient-to-r from-primary to-orange-400" style="width: 84.7%"></div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="card-lift reveal bg-white dark:bg-surface-dark p-6 rounded-2xl border border-primary/30 shadow-sm">
+        <div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+          <span class="material-icons text-primary text-2xl">percent</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1">0% Commission</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark">For your first 3 months. Keep every kobo you earn at launch.</p>
+      </div>
+      <div class="card-lift reveal reveal-delay-1 bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+        <div class="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4">
+          <span class="material-icons text-secondary text-2xl">local_offer</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1">8% Forever</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark">After your free period, you pay 8% permanently — not the standard 10%.</p>
+      </div>
+      <div class="card-lift reveal reveal-delay-2 bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+        <div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+          <span class="material-icons text-primary text-2xl">star</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1">Free Featured Listings</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark">Your products appear at the top of search results for 3 months — for free.</p>
+      </div>
+      <div class="card-lift reveal bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+        <div class="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4">
+          <span class="material-icons text-secondary text-2xl">verified</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1">Priority Verification</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark">Skip the queue. Your seller badge is verified within 24 hours of launch.</p>
+      </div>
+      <div class="card-lift reveal reveal-delay-1 bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+        <div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+          <span class="material-icons text-primary text-2xl">workspace_premium</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1">Founding Member Badge</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark">A permanent badge on your profile that shows you were here from day one.</p>
+      </div>
+      <div class="card-lift reveal reveal-delay-2 bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+        <div class="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4">
+          <span class="material-icons text-secondary text-2xl">group</span>
+        </div>
+        <h4 class="font-bold text-heading-light dark:text-heading-dark mb-1">Exclusive Community</h4>
+        <p class="text-xs text-text-body dark:text-text-body-dark">Private WhatsApp community of student entrepreneurs. Network, collab, grow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== CAMPUS AMBASSADOR ========== -->
+<section id="ambassador" class="py-24 bg-navy relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-80 h-80 bg-primary/20 rounded-full blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full blur-3xl"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2 bg-white/10 text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+          <span class="material-icons text-base text-secondary">school</span> Campus Ambassador Program
+        </div>
+        <h2 class="font-display font-black text-4xl lg:text-5xl text-white mb-6 leading-tight">
+          Rep Agora on<br/>your campus.<br/><span class="text-primary">Get paid for it.</span>
+        </h2>
+        <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+          Become the go-to person for entrepreneurship at your school. Help fellow students join Agora, earn cash, and build real leadership experience on your CV.
+        </p>
+
+        <div class="space-y-5 mb-8">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="material-icons text-white text-lg">payments</span>
+            </div>
+            <div>
+              <p class="font-bold text-white">₦500–₦2,000 per referral</p>
+              <p class="text-gray-400 text-sm">The more students you bring, the more you earn. No cap.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-secondary rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="material-icons text-white text-lg">redeem</span>
+            </div>
+            <div>
+              <p class="font-bold text-white">Free swag & merchandise</p>
+              <p class="text-gray-400 text-sm">Branded hoodies, shirts, caps — rock the Agora brand on campus.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="material-icons text-white text-lg">emoji_events</span>
+            </div>
+            <div>
+              <p class="font-bold text-white">Verified leadership experience</p>
+              <p class="text-gray-400 text-sm">A real role you can put on your LinkedIn and CV. Not just "volunteer".</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="mailto:hello@agora.ng?subject=Campus Ambassador Application"
+          class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-xl font-bold transition-all duration-200 shadow-xl shadow-primary/30 hover:-translate-y-0.5">
+          Apply to be an Ambassador
+          <span class="material-icons">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="reveal reveal-delay-1 space-y-5">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+          <p class="font-bold text-white mb-1">Who is this for?</p>
+          <p class="text-gray-300 text-sm">Any student who's connected on campus — course reps, hall presidents, SU executives, and anyone who's always plugged in to what's happening.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+          <p class="font-bold text-white mb-1">What do you actually do?</p>
+          <p class="text-gray-300 text-sm">Share Agora with fellow students, help them sign up and set up their shops, organize mini campus events, and be the local Agora expert.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+          <p class="font-bold text-white mb-3">Campuses currently recruiting</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold">FUTA</span>
+            <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold">UNILAG</span>
+            <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold">UI</span>
+            <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold">OAU</span>
+            <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold">UNIBEN</span>
+            <span class="bg-secondary/20 text-secondary px-3 py-1 rounded-full text-xs font-bold">+ 10 more</span>
+          </div>
+        </div>
+        <div class="bg-primary/20 border border-primary/30 rounded-2xl p-6">
+          <p class="font-black text-white text-2xl mb-1">Top ambassadors earn</p>
+          <p class="font-black text-4xl text-primary">₦50,000+/mo</p>
+          <p class="text-gray-300 text-sm mt-1">Just by spreading the word at their school</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== WAITLIST SIGNUP (Full form) ========== -->
+<section class="py-24 bg-white dark:bg-surface-dark transition-colors duration-300 relative overflow-hidden">
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute top-0 right-0 w-72 h-72 bg-primary/8 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-72 h-72 bg-secondary/8 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center mb-10 reveal">
+      <h2 class="font-display font-black text-4xl lg:text-5xl text-heading-light dark:text-heading-dark mb-4">
+        Your spot is waiting.<br/><span class="gradient-text">Grab it now.</span>
+      </h2>
+      <p class="text-lg text-text-body dark:text-text-body-dark">
+        Join 847+ students already on the list. First 1,000 get 0% commission for 3 months.
+      </p>
+    </div>
+
+    <div class="reveal bg-bg-light dark:bg-bg-dark rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-800">
+      <form id="full-form" onsubmit="handleSignup(event, 'full')" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-heading-light dark:text-heading-dark mb-1.5">First Name</label>
+            <input required type="text" placeholder="Adaeze"
+              class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark text-heading-light dark:text-heading-dark placeholder:text-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-heading-light dark:text-heading-dark mb-1.5">Phone Number</label>
+            <input required type="tel" placeholder="0801 234 5678"
+              class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark text-heading-light dark:text-heading-dark placeholder:text-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-heading-light dark:text-heading-dark mb-1.5">Email Address</label>
+          <input required type="email" id="full-email" placeholder="you@email.com"
+            class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark text-heading-light dark:text-heading-dark placeholder:text-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-heading-light dark:text-heading-dark mb-1.5">University</label>
+          <select required
+            class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark text-heading-light dark:text-heading-dark focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm appearance-none">
+            <option value="" disabled selected>Select your university</option>
+            <option>UNILAG</option>
+            <option>University of Ibadan (UI)</option>
+            <option>FUTA</option>
+            <option>OAU</option>
+            <option>UNIBEN</option>
+            <option>ABU Zaria</option>
+            <option>UNN</option>
+            <option>LASU</option>
+            <option>UNIPORT</option>
+            <option>UNIJOS</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-heading-light dark:text-heading-dark mb-1.5">I want to join as</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <label class="cursor-pointer">
+              <input type="radio" name="role" value="seller" class="sr-only peer" required />
+              <div class="peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary border-2 border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center transition-all hover:border-gray-300">
+                <span class="material-icons text-2xl mb-1 block text-current">store</span>
+                <p class="text-xs font-semibold text-heading-light dark:text-heading-dark peer-checked:text-primary">Seller</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="role" value="freelancer" class="sr-only peer" />
+              <div class="peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary border-2 border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center transition-all hover:border-gray-300">
+                <span class="material-icons text-2xl mb-1 block text-current">design_services</span>
+                <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">Freelancer</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="role" value="buyer" class="sr-only peer" />
+              <div class="peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary border-2 border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center transition-all hover:border-gray-300">
+                <span class="material-icons text-2xl mb-1 block text-current">shopping_cart</span>
+                <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">Buyer</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="role" value="both" class="sr-only peer" />
+              <div class="peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary border-2 border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center transition-all hover:border-gray-300">
+                <span class="material-icons text-2xl mb-1 block text-current">people</span>
+                <p class="text-xs font-semibold text-heading-light dark:text-heading-dark">Both</p>
+              </div>
+            </label>
+          </div>
+        </div>
+        <button type="submit"
+          class="w-full bg-primary hover:bg-primary-dark text-white py-4 rounded-xl font-black text-base transition-all duration-200 shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+          <span>Secure My Spot Now</span>
+          <span class="material-icons">arrow_forward</span>
+        </button>
+        <p class="text-center text-xs text-muted">No spam, ever. Your data is kept private and secure. 🔒</p>
+      </form>
+
+      <div id="full-success" class="hidden bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-6 text-center">
+        <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <span class="material-icons text-green-500 text-3xl">check_circle</span>
+        </div>
+        <h3 class="font-black text-xl text-heading-light dark:text-heading-dark mb-2">You're in! 🎉</h3>
+        <p class="text-text-body dark:text-text-body-dark text-sm">Welcome to Agora. We'll send your early access info to your email. Meanwhile, join our WhatsApp community below!</p>
+        <a href="https://wa.me/2348000000000" class="mt-4 inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-green-600 transition-colors">
+          <span class="material-icons text-base">chat</span> Join WhatsApp Community
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== FAQ ========== -->
+<section id="faq" class="py-24 bg-bg-light dark:bg-bg-dark transition-colors duration-300">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <h2 class="font-display font-black text-4xl lg:text-5xl text-heading-light dark:text-heading-dark mb-4">
+        Got questions?
+      </h2>
+      <p class="text-lg text-text-body dark:text-text-body-dark">We've probably answered it already. If not, email hello@agora.ng</p>
+    </div>
+
+    <div class="space-y-3 reveal">
+      <!-- FAQ items -->
+      <div class="faq-item bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left group">
+          <span class="font-semibold text-heading-light dark:text-heading-dark group-hover:text-primary transition-colors text-sm sm:text-base">When is Agora launching?</span>
+          <span class="material-icons text-muted faq-chevron flex-shrink-0 ml-4">expand_more</span>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-text-body dark:text-text-body-dark text-sm pb-5 leading-relaxed">We're in the final stages of development. Beta access goes out to waitlist members first — just after exam season. Join the waitlist to be first to know, and to lock in your 0% commission for 3 months.</p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left group">
+          <span class="font-semibold text-heading-light dark:text-heading-dark group-hover:text-primary transition-colors text-sm sm:text-base">Do I need a CAC registration or business account?</span>
+          <span class="material-icons text-muted faq-chevron flex-shrink-0 ml-4">expand_more</span>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-text-body dark:text-text-body-dark text-sm pb-5 leading-relaxed">Absolutely not. Just your student ID. You can verify in minutes and start selling the same day. We built Agora specifically so students don't have to deal with that barrier.</p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left group">
+          <span class="font-semibold text-heading-light dark:text-heading-dark group-hover:text-primary transition-colors text-sm sm:text-base">What's the actual commission structure?</span>
+          <span class="material-icons text-muted faq-chevron flex-shrink-0 ml-4">expand_more</span>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-text-body dark:text-text-body-dark text-sm pb-5 leading-relaxed">Standard sellers pay 10% per transaction — no subscription fees, no listing fees. First 1,000 students on the waitlist get 0% commission for 3 months, then pay 8% permanently (a lifetime discount). If you don't sell, you don't pay anything.</p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left group">
+          <span class="font-semibold text-heading-light dark:text-heading-dark group-hover:text-primary transition-colors text-sm sm:text-base">What about exams? Can I really pause my shop?</span>
+          <span class="material-icons text-muted faq-chevron flex-shrink-0 ml-4">expand_more</span>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-text-body dark:text-text-body-dark text-sm pb-5 leading-relaxed">Yes! Exam Mode is built right into your dashboard. One tap and your store is paused — no new orders come in. You can schedule your pause in advance and set a date to automatically reactivate. We totally understand the priority is your grades.</p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left group">
+          <span class="font-semibold text-heading-light dark:text-heading-dark group-hover:text-primary transition-colors text-sm sm:text-base">Can I sell from my hostel room?</span>
+          <span class="material-icons text-muted faq-chevron flex-shrink-0 ml-4">expand_more</span>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-text-body dark:text-text-body-dark text-sm pb-5 leading-relaxed">100%. Agora supports campus deliveries and on-campus pickup. Whether you're in Block C, Moremi Hall, or off-campus, we've got logistics covered. Buyers can even filter by campus location when searching.</p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left group">
+          <span class="font-semibold text-heading-light dark:text-heading-dark group-hover:text-primary transition-colors text-sm sm:text-base">How much can I realistically earn?</span>
+          <span class="material-icons text-muted faq-chevron flex-shrink-0 ml-4">expand_more</span>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-text-body dark:text-text-body-dark text-sm pb-5 leading-relaxed">It depends on what you sell and how active you are, but students on similar platforms earn ₦20,000–₦200,000 monthly. With our lower fees, you'll always keep more than you would anywhere else. We're not promising overnight wealth — but we are promising a fairer platform to build on.</p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left group">
+          <span class="font-semibold text-heading-light dark:text-heading-dark group-hover:text-primary transition-colors text-sm sm:text-base">What payment methods are supported?</span>
+          <span class="material-icons text-muted faq-chevron flex-shrink-0 ml-4">expand_more</span>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-text-body dark:text-text-body-dark text-sm pb-5 leading-relaxed">Buyers can pay by card, bank transfer, USSD, and pay on delivery. Sellers get paid directly to their Nigerian bank account within 3 business days. No dollar accounts needed. No currency conversion headaches. Everything in naira.</p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-6 py-5 text-left group">
+          <span class="font-semibold text-heading-light dark:text-heading-dark group-hover:text-primary transition-colors text-sm sm:text-base">I'm not a student — can I still join?</span>
+          <span class="material-icons text-muted faq-chevron flex-shrink-0 ml-4">expand_more</span>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-text-body dark:text-text-body-dark text-sm pb-5 leading-relaxed">Yes! While we're built with students in mind, Agora is open to any young entrepreneur or freelancer under 35. You won't get the student ID shortcut, but you still get all the great features — low fees, fast payments, and real support.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 text-center reveal">
+      <p class="text-text-body dark:text-text-body-dark text-sm">Still have questions?</p>
+      <a href="mailto:hello@agora.ng" class="text-primary font-semibold hover:underline text-sm">Email us at hello@agora.ng →</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ========== FINAL CTA ========== -->
+<section class="py-24 bg-gradient-to-br from-primary via-orange-500 to-orange-400 relative overflow-hidden">
+  <div class="absolute inset-0 -z-0">
+    <div class="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+  </div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 reveal">
+    <h2 class="font-display font-black text-4xl lg:text-6xl text-white mb-6 leading-tight">
+      Graduate with a degree<br/><span class="text-white/80">AND</span> a thriving business.
+    </h2>
+    <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+      Stop choosing between your books and your bag. Join 847+ students who've already decided they don't have to.
+    </p>
+    <div class="bg-white/15 backdrop-blur-sm p-2 rounded-2xl max-w-lg mx-auto flex flex-col sm:flex-row gap-2 border border-white/20">
+      <input
+        type="email" id="final-email"
+        placeholder="Enter your email address"
+        class="flex-1 px-4 py-3.5 bg-transparent border-none text-white placeholder:text-white/60 focus:ring-0 outline-none text-sm font-medium"
+      />
+      <button onclick="handleQuickSignup()" class="bg-white text-primary hover:bg-white/90 px-8 py-3.5 rounded-xl font-black transition-all duration-200 whitespace-nowrap text-sm">
+        Join the Waitlist
+      </button>
+    </div>
+    <p class="mt-4 text-white/70 text-xs">Only <strong class="text-white">153 founding member spots left</strong>. Closes when full.</p>
+  </div>
+</section>
+
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-navy text-gray-400 py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+      <!-- Brand -->
+      <div class="md:col-span-2">
+        <div class="flex items-center space-x-2 mb-4">
+          <div class="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
+            <span class="material-icons text-white text-xl">storefront</span>
+          </div>
+          <span class="font-display font-extrabold text-2xl text-white">Agora</span>
+        </div>
+        <p class="text-sm leading-relaxed mb-5 max-w-xs">Nigeria's first marketplace built for student hustlers. Sell more. Keep more. Earn more.</p>
+        <div class="flex space-x-3">
+          <a href="#" aria-label="Instagram" class="w-9 h-9 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-colors">
+            <span class="material-icons text-white text-lg">photo_camera</span>
+          </a>
+          <a href="#" aria-label="Twitter/X" class="w-9 h-9 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-colors">
+            <span class="text-white font-bold text-sm">𝕏</span>
+          </a>
+          <a href="#" aria-label="WhatsApp" class="w-9 h-9 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-colors">
+            <span class="material-icons text-white text-lg">chat</span>
+          </a>
+          <a href="#" aria-label="Facebook" class="w-9 h-9 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-colors">
+            <span class="material-icons text-white text-lg">facebook</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <p class="font-bold text-white text-sm mb-4 uppercase tracking-wider">Platform</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#features" class="hover:text-primary transition-colors">Features</a></li>
+          <li><a href="#pricing" class="hover:text-primary transition-colors">Pricing</a></li>
+          <li><a href="#ambassador" class="hover:text-primary transition-colors">Ambassadors</a></li>
+          <li><a href="#faq" class="hover:text-primary transition-colors">FAQ</a></li>
+          <li><a href="#waitlist" class="hover:text-primary transition-colors">Join Waitlist</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <p class="font-bold text-white text-sm mb-4 uppercase tracking-wider">Contact</p>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2"><span class="material-icons text-base text-primary">email</span>hello@agora.ng</li>
+          <li class="flex items-center gap-2"><span class="material-icons text-base text-secondary">language</span>www.agora.ng</li>
+          <li class="flex items-center gap-2"><span class="material-icons text-base text-primary">alternate_email</span>@agoramarketplace</li>
+          <li class="flex items-center gap-2"><span class="material-icons text-base text-secondary">alternate_email</span>@agoramktplace</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-xs">© 2026 Agora Marketplace. All rights reserved. Built in Nigeria 🇳🇬</p>
+      <div class="flex gap-6 text-xs">
+        <a href="#" class="hover:text-primary transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-primary transition-colors">Terms of Service</a>
+        <a href="#" class="hover:text-primary transition-colors">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ========== STICKY MOBILE CTA ========== -->
+<div id="sticky-cta" class="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800 px-4 py-3 transform translate-y-full transition-transform duration-300 shadow-2xl">
+  <a href="#waitlist"
+    class="block w-full bg-primary hover:bg-primary-dark text-white py-3.5 rounded-xl font-black text-center text-sm shadow-lg shadow-primary/30 transition-all">
+    🔥 Join 847+ Students — Get Early Access
+  </a>
+</div>
+
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+  // ——— Dark mode ———
+  function toggleDark() {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  }
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  }
+
+  // ——— Navbar scroll effect ———
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      navbar.classList.add('bg-white/95', 'dark:bg-surface-dark/95', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-gray-200', 'dark:border-gray-800');
+    } else {
+      navbar.classList.remove('bg-white/95', 'dark:bg-surface-dark/95', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-gray-200', 'dark:border-gray-800');
+    }
+  });
+
+  // ——— Sticky mobile CTA ———
+  const stickyCta = document.getElementById('sticky-cta');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      stickyCta.classList.remove('translate-y-full');
+    } else {
+      stickyCta.classList.add('translate-y-full');
+    }
+  });
+
+  // ——— Reveal on scroll ———
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ——— Counter animation ———
+  function animateCounter(el, target, duration = 2000) {
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        el.textContent = target.toLocaleString();
+        clearInterval(timer);
+      } else {
+        el.textContent = Math.floor(start).toLocaleString();
+      }
+    }, 16);
+  }
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        animateCounter(el, parseInt(el.dataset.target));
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+  // ——— FAQ accordion ———
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const chevron = btn.querySelector('.faq-chevron');
+    const isOpen = answer.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('open'));
+
+    if (!isOpen) {
+      answer.classList.add('open');
+      chevron.classList.add('open');
+    }
+  }
+
+  // ——— Form submissions ———
+  function handleSignup(event, formId) {
+    event.preventDefault();
+    const form = document.getElementById(`${formId}-form`);
+    const success = document.getElementById(`${formId}-success`);
+    if (form && success) {
+      form.style.display = 'none';
+      success.classList.remove('hidden');
+      success.classList.add('flex');
+      // Increment waitlist count (demo)
+      const countEl = document.getElementById('waitlist-hero-count');
+      if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
+    }
+  }
+
+  function handleQuickSignup() {
+    const email = document.getElementById('final-email');
+    if (!email.value || !email.value.includes('@')) {
+      email.focus();
+      email.classList.add('ring-2', 'ring-white/80');
+      setTimeout(() => email.classList.remove('ring-2', 'ring-white/80'), 1500);
+      return;
+    }
+    email.parentElement.innerHTML = `
+      <div class="flex-1 flex items-center gap-3 px-4 py-3">
+        <span class="material-icons text-white">check_circle</span>
+        <span class="text-white font-semibold text-sm">You're on the list! Check your email. 🎉</span>
+      </div>
+    `;
+  }
+
+  // ——— Waitlist count live increment (demo) ———
+  setInterval(() => {
+    const el = document.getElementById('waitlist-hero-count');
+    if (el && Math.random() > 0.7) {
+      el.textContent = parseInt(el.textContent) + 1;
+    }
+  }, 8000);
+</script>
+</body>
+</html>
