@@ -26,12 +26,11 @@
  */
 
 // ─── CONFIG ────────────────────────────────────────────────
-const SPREADSHEET_ID = '1cfA56cCWlTurF5MktQYPZww2WqX8c39tXcrl4WezkW4';
-const SHEET_NAME     = 'Waitlist';
-const SENDER_NAME    = 'Agora Marketplace';
-const REPLY_TO       = 'hello@agora.ng';
+const SPREADSHEET_ID = "1cfA56cCWlTurF5MktQYPZww2WqX8c39tXcrl4WezkW4";
+const SHEET_NAME = "Waitlist";
+const SENDER_NAME = "Agora Marketplace";
+const REPLY_TO = "hello@agora.ng";
 // ───────────────────────────────────────────────────────────
-
 
 /**
  * Handles POST requests from the website forms.
@@ -42,15 +41,14 @@ function doPost(e) {
     saveToSheet(data);
     sendConfirmationEmail(data);
 
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 'success' }))
-      .setMimeType(ContentService.MimeType.JSON);
-
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "success" }),
+    ).setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
     console.error(err);
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "error", message: err.toString() }),
+    ).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
@@ -58,28 +56,35 @@ function doPost(e) {
  * Simple health-check for GET requests (open URL in browser to test).
  */
 function doGet() {
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: 'ok', message: 'Agora Waitlist API is live 🚀' }))
-    .setMimeType(ContentService.MimeType.JSON);
+  return ContentService.createTextOutput(
+    JSON.stringify({ status: "ok", message: "Agora Waitlist API is live 🚀" }),
+  ).setMimeType(ContentService.MimeType.JSON);
 }
-
 
 // ─── SHEET ─────────────────────────────────────────────────
 
 function saveToSheet(data) {
-  const ss    = SpreadsheetApp.openById(SPREADSHEET_ID);
-  let   sheet = ss.getSheetByName(SHEET_NAME);
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = ss.getSheetByName(SHEET_NAME);
 
   // Create sheet + styled headers on first run
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    const headers = ['Timestamp', 'Name', 'Phone', 'Email', 'University', 'Role', 'Source'];
+    const headers = [
+      "Timestamp",
+      "Name",
+      "Phone",
+      "Email",
+      "University",
+      "Role",
+      "Source",
+    ];
     sheet.appendRow(headers);
 
     const headerRow = sheet.getRange(1, 1, 1, headers.length);
-    headerRow.setBackground('#FF6B35');
-    headerRow.setFontColor('#FFFFFF');
-    headerRow.setFontWeight('bold');
+    headerRow.setBackground("#FF6B35");
+    headerRow.setFontColor("#FFFFFF");
+    headerRow.setFontWeight("bold");
     headerRow.setFontSize(11);
     sheet.setFrozenRows(1);
     sheet.setColumnWidth(1, 150); // Timestamp
@@ -87,24 +92,23 @@ function saveToSheet(data) {
   }
 
   sheet.appendRow([
-    new Date().toLocaleString('en-NG', { timeZone: 'Africa/Lagos' }),
-    data.name        || '',
-    data.phone       || '',
-    data.email       || '',
-    data.university  || '',
-    data.role        || '',
-    data.source      || 'website',
+    new Date().toLocaleString("en-NG", { timeZone: "Africa/Lagos" }),
+    data.name || "",
+    data.phone || "",
+    data.email || "",
+    data.university || "",
+    data.role || "",
+    data.source || "website",
   ]);
 }
-
 
 // ─── EMAIL ─────────────────────────────────────────────────
 
 function sendConfirmationEmail(data) {
   if (!data.email) return;
 
-  const firstName = data.name ? data.name.split(' ')[0] : 'Hustler';
-  const subject   = `You're on the Agora waitlist! 🎉`;
+  const firstName = data.name ? data.name.split(" ")[0] : "Hustler";
+  const subject = `You're on the Agora waitlist! 🎉`;
 
   const plainText =
     `Hey ${firstName}! 🎉\n\n` +
@@ -112,7 +116,7 @@ function sendConfirmationEmail(data) {
     `WHAT'S NEXT:\n` +
     `✅ Your spot is secured. No action needed right now.\n` +
     `📧 We'll email you the moment beta access opens — waitlist members get in first.\n` +
-    `🏆 Your early bird perks are locked: 0% commission for 3 months + Founding Member badge.\n\n` +
+    `🏆 Your early bird perks are locked: 0% Month 1, 5% Month 2, 8% after + Founding Member badge.\n\n` +
     `WHAT YOU'RE GETTING:\n` +
     `💸 Only 10% commission (vs 20% on Jumia/Konga)\n` +
     `⚡ 3-day payouts — not the usual 30-day wait\n` +
@@ -124,9 +128,9 @@ function sendConfirmationEmail(data) {
   const htmlBody = buildEmailHtml(firstName);
 
   GmailApp.sendEmail(data.email, subject, plainText, {
-    htmlBody:  htmlBody,
-    name:      SENDER_NAME,
-    replyTo:   REPLY_TO,
+    htmlBody: htmlBody,
+    name: SENDER_NAME,
+    replyTo: REPLY_TO,
   });
 }
 
@@ -189,7 +193,7 @@ function buildEmailHtml(firstName) {
               <tr><td style="padding:7px 0;">
                 <table cellpadding="0" cellspacing="0"><tr>
                   <td style="width:26px;font-size:16px;vertical-align:top;padding-top:1px;">🏆</td>
-                  <td style="font-size:14px;color:#4A5568;line-height:1.55;padding-left:8px;"><strong style="color:#0F172A;">Early bird perks locked in.</strong> First 1,000 waitlisters get 0% commission for 3 months + a Founding Member badge.</td>
+                  <td style="font-size:14px;color:#4A5568;line-height:1.55;padding-left:8px;"><strong style="color:#0F172A;">Early bird perks locked in.</strong> First 1,000 waitlisters get 0% Month 1, 5% Month 2, then 8% + a Founding Member badge.</td>
                 </tr></table>
               </td></tr>
             </table>
