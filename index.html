@@ -119,9 +119,9 @@
           <form onsubmit="handleSubmit(event)" class="space-y-3 max-w-md">
             <input required type="text" placeholder="Your full name" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark text-heading-light dark:text-heading-dark placeholder:text-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm" />
             <input required type="email" placeholder="your@email.com" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark text-heading-light dark:text-heading-dark placeholder:text-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm" />
-            <button type="submit" class="bg-primary hover:bg-primary-dark text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-all duration-200 w-full shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+            <button type="submit" class="bg-primary hover:bg-primary-dark text-white px-4 py-2.5 sm:px-7 sm:py-3.5 rounded-2xl font-bold text-xs sm:text-sm transition-all duration-200 w-full shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
               <span>Get Early Access</span>
-              <span class="material-icons text-base">arrow_forward</span>
+              <span class="material-icons text-sm sm:text-base">arrow_forward</span>
             </button>
           </form>
           <div class="mt-6 flex items-center gap-4">
@@ -164,60 +164,85 @@
         Existing platforms weren't built with your life in mind.
       </p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="card-lift reveal bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
-        <div class="w-14 h-14 bg-red-50 dark:bg-red-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-          <span class="material-icons text-red-500 text-2xl">percent</span>
+    <div class="reveal carousel-container relative">
+      <div class="carousel-wrapper overflow-hidden">
+        <div class="carousel-track flex transition-transform duration-500 ease-out">
+          <div class="carousel-slide w-full flex-shrink-0 px-3">
+            <div class="card-lift bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group h-full">
+              <div class="w-14 h-14 bg-red-50 dark:bg-red-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                <span class="material-icons text-red-500 text-2xl">percent</span>
+              </div>
+              <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">High Commissions Eat Your Profits</h3>
+              <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+                Jumia & Konga take 15-20%. Fiverr takes 20%. You sell ₦10k and keep ₦8k. That hurts.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-slide w-full flex-shrink-0 px-3">
+            <div class="card-lift bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group h-full">
+              <div class="w-14 h-14 bg-orange-50 dark:bg-orange-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                <span class="material-icons text-orange-500 text-2xl">schedule</span>
+              </div>
+              <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Waiting 30 Days to Get Paid</h3>
+              <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+                Order completed? Great. Money in 30 days? Try paying rent with that.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-slide w-full flex-shrink-0 px-3">
+            <div class="card-lift bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group h-full">
+              <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                <span class="material-icons text-blue-500 text-2xl">chat</span>
+              </div>
+              <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Instagram DM Chaos</h3>
+              <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+                "Is it available?" Hundreds of messages daily. Spam. Lost orders. Customer frustration.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-slide w-full flex-shrink-0 px-3">
+            <div class="card-lift bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group h-full">
+              <div class="w-14 h-14 bg-purple-50 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                <span class="material-icons text-purple-500 text-2xl">menu_book</span>
+              </div>
+              <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Class or Business?</h3>
+              <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+                Missing your 8AM for a customer delivery. Failing that test because you were handling orders.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-slide w-full flex-shrink-0 px-3">
+            <div class="card-lift bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group h-full">
+              <div class="w-14 h-14 bg-yellow-50 dark:bg-yellow-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                <span class="material-icons text-yellow-500 text-2xl">gavel</span>
+              </div>
+              <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">CAC Registration Barrier</h3>
+              <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+                Platforms want CAC registration. You're 20. You just want to sell your thrift finds.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-slide w-full flex-shrink-0 px-3">
+            <div class="card-lift bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group h-full">
+              <div class="w-14 h-14 bg-teal-50 dark:bg-teal-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                <span class="material-icons text-teal-500 text-2xl">dashboard</span>
+              </div>
+              <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">No Platform Does Both</h3>
+              <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
+                Sell products on Jumia, services on Fiverr. No platform lets you do both.
+              </p>
+            </div>
+          </div>
         </div>
-        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">High Commissions Eat Your Profits</h3>
-        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
-          Jumia & Konga take 15-20%. Fiverr takes 20%. You sell ₦10k and keep ₦8k. That hurts.
-        </p>
       </div>
-      <div class="card-lift reveal reveal-delay-1 bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
-        <div class="w-14 h-14 bg-orange-50 dark:bg-orange-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-          <span class="material-icons text-orange-500 text-2xl">schedule</span>
-        </div>
-        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Waiting 30 Days to Get Paid</h3>
-        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
-          Order completed? Great. Money in 30 days? Try paying rent with that.
-        </p>
-      </div>
-      <div class="card-lift reveal reveal-delay-2 bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
-        <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-          <span class="material-icons text-blue-500 text-2xl">chat</span>
-        </div>
-        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Instagram DM Chaos</h3>
-        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
-          "Is it available?" Hundreds of messages daily. Spam. Lost orders. Customer frustration.
-        </p>
-      </div>
-      <div class="card-lift reveal bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
-        <div class="w-14 h-14 bg-purple-50 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-          <span class="material-icons text-purple-500 text-2xl">menu_book</span>
-        </div>
-        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">Class or Business?</h3>
-        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
-          Missing your 8AM for a customer delivery. Failing that test because you were handling orders.
-        </p>
-      </div>
-      <div class="card-lift reveal reveal-delay-1 bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
-        <div class="w-14 h-14 bg-yellow-50 dark:bg-yellow-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-          <span class="material-icons text-yellow-500 text-2xl">gavel</span>
-        </div>
-        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">CAC Registration Barrier</h3>
-        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
-          Platforms want CAC registration. You're 20. You just want to sell your thrift finds.
-        </p>
-      </div>
-      <div class="card-lift reveal reveal-delay-2 bg-bg-light dark:bg-bg-dark p-7 rounded-2xl border border-gray-100 dark:border-gray-800 group">
-        <div class="w-14 h-14 bg-teal-50 dark:bg-teal-900/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-          <span class="material-icons text-teal-500 text-2xl">dashboard</span>
-        </div>
-        <h3 class="font-bold text-lg text-heading-light dark:text-heading-dark mb-2">No Platform Does Both</h3>
-        <p class="text-sm text-text-body dark:text-text-body-dark leading-relaxed">
-          Sell products on Jumia, services on Fiverr. No platform lets you do both.
-        </p>
+      <!-- Carousel dots -->
+      <div class="flex justify-center gap-2 mt-8">
+        <button class="carousel-dot active w-2.5 h-2.5 rounded-full bg-primary transition-all" data-slide="0"></button>
+        <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all" data-slide="1"></button>
+        <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all" data-slide="2"></button>
+        <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all" data-slide="3"></button>
+        <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all" data-slide="4"></button>
+        <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all" data-slide="5"></button>
       </div>
     </div>
   </div>
@@ -493,14 +518,14 @@
 
 <!-- ========== FOOTER ========== -->
 <footer class="bg-heading-light dark:bg-surface-2-dark py-12 border-t border-gray-200 dark:border-gray-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="mb-12">
+      <h3 class="font-black text-white text-xl mb-2">Agora</h3>
+      <p class="text-gray-400 text-sm">The marketplace built for student entrepreneurs.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
       <div>
-        <h3 class="font-black text-white text-lg mb-4">Agora</h3>
-        <p class="text-gray-400 text-sm">The marketplace built for student entrepreneurs.</p>
-      </div>
-      <div>
-        <h4 class="font-bold text-white text-sm mb-4">Platform</h4>
+        <h4 class="font-bold text-white text-xs uppercase tracking-wide mb-3">Platform</h4>
         <ul class="space-y-2 text-sm text-gray-400">
           <li><a href="#" class="hover:text-primary transition-colors">About</a></li>
           <li><a href="#" class="hover:text-primary transition-colors">How It Works</a></li>
@@ -508,7 +533,7 @@
         </ul>
       </div>
       <div>
-        <h4 class="font-bold text-white text-sm mb-4">Support</h4>
+        <h4 class="font-bold text-white text-xs uppercase tracking-wide mb-3">Support</h4>
         <ul class="space-y-2 text-sm text-gray-400">
           <li><a href="#" class="hover:text-primary transition-colors">Help Center</a></li>
           <li><a href="#" class="hover:text-primary transition-colors">Contact Us</a></li>
@@ -516,7 +541,7 @@
         </ul>
       </div>
       <div>
-        <h4 class="font-bold text-white text-sm mb-4">Legal</h4>
+        <h4 class="font-bold text-white text-xs uppercase tracking-wide mb-3">Legal</h4>
         <ul class="space-y-2 text-sm text-gray-400">
           <li><a href="#" class="hover:text-primary transition-colors">Privacy</a></li>
           <li><a href="#" class="hover:text-primary transition-colors">Terms</a></li>
@@ -525,7 +550,7 @@
       </div>
     </div>
     <div class="border-t border-gray-800 pt-8">
-      <p class="text-center text-gray-400 text-sm">© 2026 Agora. All rights reserved. Helping students earn smarter.</p>
+      <p class="text-gray-400 text-sm">© 2026 Agora. All rights reserved. Helping students earn smarter.</p>
     </div>
   </div>
   </footer>
