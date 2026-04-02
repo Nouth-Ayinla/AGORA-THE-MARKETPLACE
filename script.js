@@ -31,30 +31,31 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 // ——— Carousel ———
-const carouselTrack = document.querySelector('.carousel-track');
-const carouselSlides = document.querySelectorAll('.carousel-slide');
-const carouselDots = document.querySelectorAll('.carousel-dot');
-let slideIndex = 0;
-
-function updateCarousel() {
+function initializeCarousel(carouselContainer) {
+  const carouselTrack = carouselContainer.querySelector('.carousel-track');
+  const carouselSlides = carouselContainer.querySelectorAll('.carousel-slide');
+  const carouselDots = carouselContainer.querySelectorAll('.carousel-dot');
+  
   if (!carouselTrack || carouselSlides.length === 0) return;
   
-  carouselTrack.style.transform = `translateX(-${slideIndex * 100}%)`;
-  carouselDots.forEach((dot, i) => {
-    dot.classList.toggle('active', i === slideIndex);
-    dot.classList.toggle('bg-primary', i === slideIndex);
-    dot.classList.toggle('bg-gray-300', i !== slideIndex);
-    dot.classList.toggle('dark:bg-gray-600', i !== slideIndex);
-  });
-}
-
-function nextSlide() {
-  slideIndex = (slideIndex + 1) % carouselSlides.length;
-  updateCarousel();
-}
-
-// Carousel auto-play (every 5 seconds)
-if (carouselSlides.length > 0) {
+  let slideIndex = 0;
+  
+  function updateCarousel() {
+    carouselTrack.style.transform = `translateX(-${slideIndex * 100}%)`;
+    carouselDots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === slideIndex);
+      dot.classList.toggle('bg-primary', i === slideIndex);
+      dot.classList.toggle('bg-gray-300', i !== slideIndex);
+      dot.classList.toggle('dark:bg-gray-600', i !== slideIndex);
+    });
+  }
+  
+  function nextSlide() {
+    slideIndex = (slideIndex + 1) % carouselSlides.length;
+    updateCarousel();
+  }
+  
+  // Carousel auto-play (every 5 seconds)
   setInterval(nextSlide, 5000);
   
   // Click handlers for dots
@@ -65,6 +66,23 @@ if (carouselSlides.length > 0) {
     });
   });
 }
+
+// Initialize carousels only on mobile (screens smaller than 1024px)
+function initializeCarouselsOnMobile() {
+  if (window.innerWidth < 1024) {
+    document.querySelectorAll('.carousel-container').forEach(container => {
+      initializeCarousel(container);
+    });
+  }
+}
+
+// Initialize carousels on page load
+initializeCarouselsOnMobile();
+
+// Re-initialize carousels on window resize
+window.addEventListener('resize', () => {
+  initializeCarouselsOnMobile();
+});
 
 // ——— Counter animation ———
 function animateCounter(el, target, duration = 2000) {

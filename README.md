@@ -1,6 +1,6 @@
 # Agora
 
-Nigeria's first marketplace built for student hustlers. Sell products and services, keep 90% of your earnings, and get paid in 3 days.
+Nigeria's first marketplace built for student Entrepreneurs. Sell products and services, keep 90% of your earnings, and get paid in 3 days.
 
 ## Project Structure
 

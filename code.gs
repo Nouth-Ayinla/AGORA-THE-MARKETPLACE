@@ -112,7 +112,7 @@ function sendConfirmationEmail(data) {
 
   const plainText =
     `Hey ${firstName}! 🎉\n\n` +
-    `You're officially on the Agora waitlist — Nigeria's first marketplace built for student hustlers.\n\n` +
+    `You're officially on the Agora waitlist — Nigeria's first marketplace built for student Entrepreneurs.\n\n` +
     `WHAT'S NEXT:\n` +
     `✅ Your spot is secured. No action needed right now.\n` +
     `📧 We'll email you the moment beta access opens — waitlist members get in first.\n` +
@@ -170,7 +170,7 @@ function buildEmailHtml(firstName) {
           Hey <strong style="color:#0F172A;">${firstName}</strong> 👋
         </p>
         <p style="margin:0 0 24px;font-size:15px;color:#4A5568;line-height:1.7;">
-          Welcome to <strong style="color:#FF6B35;">Agora</strong> — Nigeria's first marketplace built for student hustlers like you. You're now part of a growing community of students who've decided they don't have to choose between their books and their bag. 💪
+          Welcome to <strong style="color:#FF6B35;">Agora</strong> — Nigeria's first marketplace built for student Entrepreneurs like you. You're now part of a growing community of students who've decided they don't have to choose between their books and their bag. 💪
         </p>
 
         <!-- What's next -->
@@ -260,7 +260,7 @@ function buildEmailHtml(firstName) {
     <tr>
       <td style="background:#F8FAFC;padding:22px 40px;border-top:1px solid #E2E8F0;text-align:center;">
         <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#0F172A;">Agora Marketplace</p>
-        <p style="margin:0 0 10px;font-size:12px;color:#94A3B8;">Nigeria's marketplace for student hustlers 🇳🇬</p>
+        <p style="margin:0 0 10px;font-size:12px;color:#94A3B8;">Nigeria's marketplace for student Entrepreneurs 🇳🇬</p>
         <p style="margin:0 0 6px;font-size:11px;color:#CBD5E1;">
           Questions? Reply to this email or reach us at
           <a href="mailto:hello@agora.ng" style="color:#FF6B35;text-decoration:none;">hello@agora.ng</a>
